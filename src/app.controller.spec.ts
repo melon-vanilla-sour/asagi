@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PostController } from './post.controller';
-import { AppService } from './app.service';
+import { MysqlRepository } from './prismaMysql.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -8,7 +8,7 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [PostController],
-      providers: [AppService],
+      providers: [MysqlRepository],
     }).compile();
   });
 

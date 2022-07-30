@@ -1,10 +1,10 @@
 // import { Module } from '@nestjs/common';
 // import { CommentRepositoryInterface } from '../comment.repository.interface.';
-// import { MysqlRepository } from './mysql.repository';
+// import
 
 // @Module({
 //   providers: [
-//     { provide: CommentRepositoryInterface, useClass: MysqlRepository },
+//     { provide: CommentRepositoryInterface, useClass:  },
 //   ],
 //   exports: [CommentRepositoryInterface],
 // })

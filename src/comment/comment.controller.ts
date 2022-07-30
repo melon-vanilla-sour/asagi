@@ -18,7 +18,8 @@ export class CommentController {
     @Param('id') postId: string,
     @Body() commentDto: CommentDto,
   ) {
-    return this.commentRepositoryInterface.postParent(postId, commentDto);
+    const { content } = commentDto;
+    return this.commentRepositoryInterface.postParent(postId, content);
   }
 
   @Post(':cid')
@@ -27,10 +28,11 @@ export class CommentController {
     @Param('cid') commentId: string,
     @Body() commentDto: CommentDto,
   ) {
+    const { content } = commentDto;
     return this.commentRepositoryInterface.postChild(
       postId,
       commentId,
-      commentDto,
+      content,
     );
   }
 
@@ -40,10 +42,12 @@ export class CommentController {
     @Param('cid') commentId: string,
     @Body() commentDto: CommentDto,
   ) {
+    const { content, published = false } = commentDto;
     return this.commentRepositoryInterface.editContent(
       postId,
       commentId,
-      commentDto,
+      content,
+      published,
     );
   }
 

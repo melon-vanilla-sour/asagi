@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, Comment } from '@prisma/client';
 import { CommentDto } from '../comment.dto';
+import { CommentRepositoryInterface } from '../comment.repository.interface.';
 
 @Injectable()
 export class PrismaRepository implements CommentRepositoryInterface {
-  async postParent(postId: string, commentDto: CommentDto): Promise<void> {
+  async postParent(postId: string, content: string): Promise<void> {
     const prisma = new PrismaClient();
     await prisma.post.upsert({
       where: {
@@ -13,7 +14,7 @@ export class PrismaRepository implements CommentRepositoryInterface {
       update: {
         comments: {
           create: {
-            content: `${commentDto.content}`,
+            content: `${content}`,
             author: { create: {} },
           },
         },
@@ -23,7 +24,7 @@ export class PrismaRepository implements CommentRepositoryInterface {
         id: `${postId}`,
         comments: {
           create: {
-            content: `${commentDto.content}`,
+            content: `${content}`,
             author: { create: {} },
           },
         },
@@ -34,12 +35,12 @@ export class PrismaRepository implements CommentRepositoryInterface {
   async postChild(
     postId: string,
     commentId: string,
-    commentDto: CommentDto,
+    content: string,
   ): Promise<void> {
     const prisma = new PrismaClient();
     await prisma.comment.create({
       data: {
-        content: `${commentDto.content}`,
+        content: `${content}`,
         author: { create: {} },
         post: {
           connect: { id: postId },
@@ -54,7 +55,8 @@ export class PrismaRepository implements CommentRepositoryInterface {
   async editContent(
     postId: string,
     commentId: string,
-    commentDto: CommentDto,
+    content: string,
+    published: boolean,
   ): Promise<void> {
     const prisma = new PrismaClient();
     await prisma.comment.update({
@@ -62,8 +64,8 @@ export class PrismaRepository implements CommentRepositoryInterface {
         id: Number.parseInt(commentId),
       },
       data: {
-        content: `${commentDto.content}`,
-        published: commentDto.published ?? false,
+        content: `${content}`,
+        published: published ?? false,
       },
     });
   }

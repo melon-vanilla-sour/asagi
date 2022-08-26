@@ -1,5 +1,3 @@
-import { CommentRepositoryInterface } from '../comment.repository.interface.';
-
 interface CreateCommentEntityPayload {
   content: string;
   published: boolean;

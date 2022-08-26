@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { CommentController } from './comment/comment.controller';
-import { PrismaModule } from './comment/prisma/prisma.module';
-import { Prisma } from '@prisma/client';
+import { CommentModule } from './comment/core/comment.module';
 
 @Module({
   imports: [
-    PrismaModule,
+    CommentModule,
     // process.env.ORM == 'PRISMA' ? PrismaModule : TypeOrmModule,
     // process.env.DATABASE_PROVIDER == 'MYSQL' ? MysqlModule : MongoModule,
   ],

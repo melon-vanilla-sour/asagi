@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CommentRepositoryInterface } from '../comment.repository.interface.';
+import { CommentRepositoryInterface } from './comment.repository.interface';
 import { Comment } from './comment.entity';
 
 interface CreateCommentEntityPayload {
@@ -20,7 +20,7 @@ export class CommentService {
   // togglePublished(commentId: string): Promise<void> {}
   async createParent(payload: CreateCommentEntityPayload): Promise<void> {
     const comment: Comment = new Comment(payload);
-    await commentRepository.addComment(comment);
+    await this.commentRepository.addComment(payload.postId, payload.content);
   }
   // createChild(comment): Promise<void>;
 }

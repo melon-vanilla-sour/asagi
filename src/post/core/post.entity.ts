@@ -1,8 +1,10 @@
 import { Comment } from 'src/comment/core/comment.entity';
 
-export class Post {
+export class Thread {
+  content!: string;
   comments!: Comment[];
 }
-// Make new post
-// Delete post
-// Get post
+
+// Make new thread
+// Delete thread
+// Get thread
